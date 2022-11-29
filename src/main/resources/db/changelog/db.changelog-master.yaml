@@ -1,0 +1,856 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-lession1.yaml
+  - changeSet:
+      id: 1
+      author: shalera
+      changes:
+        - sql:
+            CREATE TYPE rank AS ENUM ('1','2','3','4','5','6','7','8','9','10')
+        - createTable:
+            tableName: "employee"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: date_of_hire
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_of_dismissal
+                  type: date
+                  constraints:
+                    nullable: true
+              - column:
+                  name: reason_for_dismissal
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: photo
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: date_of_creation
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date_of_update
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_on_remote
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: note
+                  type: text
+                  constraints:
+                    nullable: true
+              - column:
+                  name: timezone
+                  type: varchar
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: "contact_info"
+            columns:
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_contact_employee
+                    references: employee(id)
+              - column:
+                  name: office_number
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: personal_number
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: office_email
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: personal_email
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: telegram_acc
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: skype_acc
+                  type: varchar
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: "organization"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: "project"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: organization_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_project_organization
+                    references: organization(id)
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: "employee_project"
+            columns:
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeproject_employee
+                    references: employee(id)
+              - column:
+                  name: project_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeproject_project
+                    references: project(id)
+        - createTable:
+            tableName: "working_hours"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: project_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeproject_employee
+                    references: project(id)
+              - column:
+                  name: working_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_time
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: total_time
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: "relative"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: surname
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patronymic
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: relation
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: phone_number
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: "employee_relative"
+            columns:
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeerelative_employee
+                    references: employee(id)
+              - column:
+                  name: relative_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeerelative_relative
+                    references: relative(id)
+        - createTable:
+            tableName: "skill"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level
+                  type: varchar
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: "employee_skill"
+            columns:
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeskill_employee
+                    references: employee(id)
+              - column:
+                  name: skill_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeskill_skill
+                    references: skill(id)
+        - createTable:
+            tableName: "position"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: rank
+                  type: rank
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: "employee_position"
+            columns:
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeposition_employee
+                    references: employee(id)
+              - column:
+                  name: position_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeposition_position
+                    references: position(id)
+        - createTable:
+            tableName: "address"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: country
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: region
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: street
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: house_number
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: apartment_number
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_current
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_registered
+                  type: boolean
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: "employee_address"
+            columns:
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeaddress_employee
+                    references: employee(id)
+              - column:
+                  name: address_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_employeeaddress_address
+                    references: address(id)
+        - createTable:
+            tableName: "users"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: surname
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patronymic
+                  type: varchar
+                  constraints:
+                    nullable: true
+              - column:
+                  name: birthday
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sex
+                  type: varchar
+                  constraints:
+                    nullable: false
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_users_employee
+                    references: employee(id)
+        - createTable:
+            tableName: "vacation"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: employee_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_vacation_employee
+                    references: employee(id)
+              - column:
+                  name: replacement_user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_vacation_user
+                    references: users(id)
+              - column:
+                  name: start_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_date
+                  type: date
+                  constraints:
+                    nullable: true
+        - createTable:
+            tableName: "roles"
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: "users_roles"
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_usersroles_users
+                    references: users(id)
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_usersroles_roles
+                    references: roles(id)
+
+  - changeSet:
+      id: 2
+      author: shalera
+      comment: "Test data"
+      changes:
+        - insert:
+            tableName: "employee"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: date_of_hire
+                  value: "2022.10.01"
+#              - column:
+#                  name: date_of_dismissal
+#              - column:
+#                  name: reason_for_dismissal
+#                  type: varchar
+#                  constraints:
+#                    nullable: true
+#              - column:
+#                  name: photo
+#                  type: varchar
+#                  constraints:
+#                    nullable: true
+              - column:
+                  name: date_of_creation
+                  value: "2022.01.01"
+              - column:
+                  name: date_of_update
+                  value: "2022.10.01"
+              - column:
+                  name: is_on_remote
+                  value: true
+              - column:
+                  name: note
+                  value: "Just some text here Just some text here Just some text here Just some text here Just some text here"
+              - column:
+                  name: timezone
+                  value: "+06"
+        - insert:
+            tableName: "contact_info"
+            columns:
+              - column:
+                  name: employee_id
+                  value: 1
+              - column:
+                  name: office_number
+                  value: 2
+              - column:
+                  name: personal_number
+                  value: 23114
+              - column:
+                  name: office_email
+                  value: testuser@qazdevelop.com
+              - column:
+                  name: personal_email
+                  value: testuser@mail.com
+              - column:
+                  name: telegram_acc
+                  value: testuser
+              - column:
+                  name: skype_acc
+                  value: testuser
+        - insert:
+            tableName: "organization"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Wiseman"
+        - insert:
+            tableName: "project"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: organization_id
+                  value: 1
+              - column:
+                  name: name
+                  value: "Wisedoc"
+        - insert:
+            tableName: "employee_project"
+            columns:
+              - column:
+                  name: employee_id
+                  value: 1
+              - column:
+                  name: project_id
+                  value: 1
+        - insert:
+            tableName: "working_hours"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: project_id
+                  value: 1
+              - column:
+                  name: working_date
+                  value: 2022.10.01
+              - column:
+                  name: start_time
+                  value: 2022.10.10
+              - column:
+                  name: end_time
+                  value: 2022.12.10
+              - column:
+                  name: total_time
+                  value: 2 месяца
+        - insert:
+            tableName: "relative"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: surname
+                  value: Dolgov
+              - column:
+                  name: name
+                  value: Valeriy
+              - column:
+                  name: patronymic
+                  value: Vasilevich
+#              - column:
+#                  name: relation
+#                  type: varchar
+#                  constraints:
+#                    nullable: true
+              - column:
+                  name: phone_number
+                  value: 823898502825
+        - insert:
+            tableName: "employee_relative"
+            columns:
+              - column:
+                  name: employee_id
+                  value: 1
+              - column:
+                  name: relative_id
+                  value: 1
+        - insert:
+            tableName: "skill"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: Basics of SQL
+              - column:
+                  name: level
+                  value: Strong cock
+        - insert:
+            tableName: "employee_skill"
+            columns:
+              - column:
+                  name: employee_id
+                  value: 1
+              - column:
+                  name: skill_id
+                  value: 1
+        - insert:
+            tableName: "position"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: Best Java Developer and Best System Administrator(before Andrey Shatt)
+              - column:
+                  name: level
+                  value: Big cockwerk
+              - column:
+                  name: rank
+                  value: 10
+        - insert:
+            tableName: "employee_position"
+            columns:
+              - column:
+                  name: employee_id
+                  value: 1
+              - column:
+                  name: position_id
+                  value: 1
+        - insert:
+            tableName: "address"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: country
+                  value: Best country ever Kazakhstan
+              - column:
+                  name: region
+                  value: Karaganda
+              - column:
+                  name: city
+                  value: Karaganda
+              - column:
+                  name: street
+                  value: Keramicheskaya street
+              - column:
+                  name: house_number
+                  value: 82
+              - column:
+                  name: apartment_number
+                  value: 98
+              - column:
+                  name: is_current
+                  value: true
+              - column:
+                  name: is_registered
+                  value: true
+        - insert:
+            tableName: "employee_address"
+            columns:
+              - column:
+                  name: employee_id
+                  value: 1
+              - column:
+                  name: address_id
+                  value: 1
+        - insert:
+            tableName: "users"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: surname
+                  value: Dolgov
+              - column:
+                  name: name
+                  value: Valeriy
+              - column:
+                  name: patronymic
+                  value: Vasilevich
+              - column:
+                  name: birthday
+                  value: 2001.10.01
+              - column:
+                  name: password
+                  value: 12345
+              - column:
+                  name: sex
+                  value: Big sex
+              - column:
+                  name: employee_id
+                  value: 1
+        - insert:
+            tableName: "vacation"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: employee_id
+                  value: 1
+              - column:
+                  name: replacement_user_id
+                  value: 1
+              - column:
+                  name: start_date
+                  value: 2022.10.01
+              - column:
+                  name: end_date
+                  value: 2022.12.31
+#              - column:
+#                  name: update_date
+#                  value:
+        - insert:
+            tableName: "roles"
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: name
+                  value: System administrator
+        - insert:
+            tableName: "users_roles"
+            columns:
+              - column:
+                  name: user_id
+                  value: 1
+              - column:
+                  name: role_id
+                  value: 1
+#        - insert:
+#            tableName: "employee"
+#            columns:
+#              - column:
+#                  name: id
+#                  value: 1
+#              - column:
+#                  name: date_of_hire
+#                  value: "2022.10.01"
+#              #              - column:
+#              #                  name: date_of_dismissal
+#              #              - column:
+#              #                  name: reason_for_dismissal
+#              #                  type: varchar
+#              #                  constraints:
+#              #                    nullable: true
+#              #              - column:
+#              #                  name: photo
+#              #                  type: varchar
+#              #                  constraints:
+#              #                    nullable: true
+#              - column:
+#                  name: date_of_creation
+#                  value: "2022.01.01"
+#              - column:
+#                  name: date_of_update
+#                  value: "2022.10.01"
+#              - column:
+#                  name: is_on_remote
+#                  value: true
+#              - column:
+#                  name: note
+#                  value: "Just some text here Just some text here Just some text here Just some text here Just some text here"
+#              - column:
+#                  name: timezone
+#                  value: "+06"
+#        - insert:
+#            tableName: "meter_records"
+#            columns:
+#              - column:
+#                  name: meter_id
+#                  value: 325
+#              - column:
+#                  name: type
+#                  value: "MT555"
+#              - column:
+#                  name: meter_group
+#                  value: "room2"
+#              - column:
+#                  name: timestamp
+#                  value: "2022.10.11"
+#              - column:
+#                  name: current_reading
+#                  value: 324.37
+#      rollback:
+#        - delete:
+#            tableName: "meter_records"
+#            where: type in ('ELM777', 'MT555')
