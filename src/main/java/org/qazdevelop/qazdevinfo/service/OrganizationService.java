@@ -5,23 +5,23 @@ import org.qazdevelop.qazdevinfo.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class OrganizationServiceImpl implements OrganizationService {
+public class OrganizationService {
 
     private final OrganizationRepository repository;
 
     @Autowired
-    public OrganizationServiceImpl(OrganizationRepository repository) {
+    public OrganizationService(OrganizationRepository repository) {
         this.repository = repository;
     }
 
-    @Override
     public void saveOrganization(Organization organization) {
-        this.repository.save(organization);
+        repository.save(organization);
     }
 
-    @Override
-    public Iterable<Organization> findAllOrganizations() {
+    public List<Organization> findAllOrganizations() {
         return repository.findAll();
     }
 }

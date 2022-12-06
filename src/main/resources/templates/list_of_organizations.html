@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Список организаций</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
 </head>
 <body>
-$END$
+<div class="container">
+    <h1> Список всех записей счетчиков </h1>
+    <table class="table table-striped table-responsive-md table-bordered">
+        <thead>
+        <tr>
+            <th> id</th>
+            <th> name</th>
+<!--            <th> project</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record : ${listOfOrganizations}">
+            <td th:text="${record.id}"></td>
+            <td th:text="${record.name}"></td>
+<!--            <td th:text="${record.project}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/authenticated/showNewForm}" class="btn btn-primary btn-sm mb-3"> Добавить новую запись счетчика</a>
+</div>
 </body>
 </html>

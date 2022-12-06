@@ -1,29 +1,27 @@
 package org.qazdevelop.qazdevinfo.service;
 
 import org.qazdevelop.qazdevinfo.entity.Project;
-import org.qazdevelop.qazdevinfo.repository.OrganizationRepository;
 import org.qazdevelop.qazdevinfo.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.AccessType;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class ProjectServiceImpl implements ProjectService {
+public class ProjectService {
 
     private final ProjectRepository repo;
 
     @Autowired
-    public ProjectServiceImpl(ProjectRepository repo) {
+    public ProjectService(ProjectRepository repo) {
         this.repo = repo;
     }
 
-    @Override
     public void saveProject(Project project) {
-        this.repo.save(project);
+        repo.save(project);
     }
 
-    @Override
-    public Iterable<Project> findAllProjects() {
-        return this.repo.findAll();
+    public List<Project> findAllProjects() {
+        return repo.findAll();
     }
 }

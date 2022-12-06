@@ -5,23 +5,23 @@ import org.qazdevelop.qazdevinfo.repository.WorkingHoursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class WorkingHoursServiceImpl implements WorkingHoursService{
+public class WorkingHoursService {
 
     private final WorkingHoursRepository repo;
 
     @Autowired
-    public WorkingHoursServiceImpl(WorkingHoursRepository repo) {
+    public WorkingHoursService(WorkingHoursRepository repo) {
         this.repo = repo;
     }
 
-    @Override
     public void saveWorkingHours(WorkingHours workingHours) {
-        this.repo.save(workingHours);
+        repo.save(workingHours);
     }
 
-    @Override
-    public Iterable<WorkingHours> findAllWorkingHours() {
-        return this.repo.findAll();
+    public List<WorkingHours> findAllWorkingHours() {
+        return repo.findAll();
     }
 }
