@@ -6,19 +6,16 @@ import org.qazdevelop.qazdevinfo.service.OrganizationService;
 import org.qazdevelop.qazdevinfo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+//TODO Разделить это контроллер на 2
 @RestController
-@RequestMapping("/api")
-public class RestControllerForOrganizationAndProject {
+@RequestMapping("/api/organizations")
+public class OrganizationRestController {
 
     private final OrganizationService organizationService;
 
-    private final ProjectService projectService;
-
     @Autowired
-    public RestControllerForOrganizationAndProject(OrganizationService organizationService, ProjectService projectService) {
+    public OrganizationRestController(OrganizationService organizationService) {
         this.organizationService = organizationService;
-        this.projectService = projectService;
     }
 
     @PostMapping("/saveNewOrganization")
@@ -30,15 +27,4 @@ public class RestControllerForOrganizationAndProject {
     public Iterable<Organization> showAllOrganizations(){
         return organizationService.findAllOrganizations();
     }
-
-    @PostMapping("/saveNewProject")
-    public void saveNewProject(@RequestBody Project project){
-        this.projectService.saveProject(project);
-    }
-
-    @GetMapping("/showAllProjects")
-    public Iterable<Project> showAllProjects(){
-        return this.projectService.findAllProjects();
-    }
-
 }

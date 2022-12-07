@@ -1,5 +1,6 @@
 package org.qazdevelop.qazdevinfo.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Data
+//@Embeddable
 @Table(name = "employee")
 public class Employee {
 
@@ -42,4 +44,9 @@ public class Employee {
 
     @Column(name = "timezone")
     private String timezone;
+
+    @OneToOne
+    @JsonManagedReference
+    @JoinColumn(name = "id")
+    private ContactInfo info;
 }

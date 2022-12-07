@@ -1,5 +1,6 @@
 package org.qazdevelop.qazdevinfo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -9,9 +10,14 @@ import lombok.Data;
 public class ContactInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id")
-    private Long employeeId;
+    @Column(name = "employee_id", insertable = false, updatable = false)
+    private Long employee_id;
+
+
+    @OneToOne
+    @JsonBackReference
+    @PrimaryKeyJoinColumn
+    private Employee employee;
 
     @Column(name = "office_number")
     private String officeNumber;

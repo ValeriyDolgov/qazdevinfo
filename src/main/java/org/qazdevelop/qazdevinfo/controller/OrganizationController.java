@@ -8,16 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ControllerForOrganizationsAndProjects {
+public class OrganizationController {
 
     private final OrganizationService organizationService;
 
-    private final ProjectService projectService;
-
     @Autowired
-    public ControllerForOrganizationsAndProjects(OrganizationService organizationService, ProjectService projectService) {
+    public OrganizationController(OrganizationService organizationService) {
         this.organizationService = organizationService;
-        this.projectService = projectService;
     }
 
     @GetMapping("/")

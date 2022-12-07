@@ -17,10 +17,6 @@ public class WorkingHours {
     @Column(name = "id")
     private Long id;
 
-    //Foreign Key
-//    @Column(name = "project_id")
-//    private Long projectId;
-
     @OneToOne
     @JsonBackReference
     private Project project;
