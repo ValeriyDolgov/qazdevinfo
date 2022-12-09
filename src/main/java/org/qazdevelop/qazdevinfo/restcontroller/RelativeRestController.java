@@ -1,4 +1,4 @@
-package org.qazdevelop.qazdevinfo.controller;
+package org.qazdevelop.qazdevinfo.restcontroller;
 
 import org.qazdevelop.qazdevinfo.entity.Relative;
 import org.qazdevelop.qazdevinfo.service.RelativeService;

@@ -1,4 +1,4 @@
-package org.qazdevelop.qazdevinfo.controller;
+package org.qazdevelop.qazdevinfo.restcontroller;
 
 import org.qazdevelop.qazdevinfo.entity.Employee;
 import org.qazdevelop.qazdevinfo.service.EmployeeService;

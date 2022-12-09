@@ -1,4 +1,4 @@
-package org.qazdevelop.qazdevinfo.controller;
+package org.qazdevelop.qazdevinfo.restcontroller;
 
 import org.qazdevelop.qazdevinfo.entity.Skill;
 import org.qazdevelop.qazdevinfo.service.SkillService;

@@ -1,7 +1,12 @@
 package org.qazdevelop.qazdevinfo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,4 +32,9 @@ public class Relative {
 
     @Column(name = "phone_number")
     private String phoneNumber;
+
+//    @ManyToMany(mappedBy = "relativeSet")
+//////    @JsonIgnore
+//////    @JsonBackReference
+//    Set<Employee> employee;
 }

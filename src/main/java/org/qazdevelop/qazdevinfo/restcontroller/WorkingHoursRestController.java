@@ -1,4 +1,4 @@
-package org.qazdevelop.qazdevinfo.controller;
+package org.qazdevelop.qazdevinfo.restcontroller;
 
 import org.qazdevelop.qazdevinfo.entity.WorkingHours;
 import org.qazdevelop.qazdevinfo.service.WorkingHoursService;

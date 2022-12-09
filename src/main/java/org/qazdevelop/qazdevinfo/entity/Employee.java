@@ -1,10 +1,12 @@
 package org.qazdevelop.qazdevinfo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Data
@@ -49,4 +51,35 @@ public class Employee {
     @JsonManagedReference
     @JoinColumn(name = "id")
     private ContactInfo info;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employee_relative",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "relative_id")
+    )
+//    @JsonManagedReference
+//    @JsonIgnore
+    Set<Relative> relativeSet;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employee_skill",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    Set<Skill> skillsSet;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employee_position",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "position_id")
+    )
+    Set<Position> positionSet;
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "employee_skill",
+//            joinColumns = @JoinColumn(name = "employee_id")
+//    )
 }
