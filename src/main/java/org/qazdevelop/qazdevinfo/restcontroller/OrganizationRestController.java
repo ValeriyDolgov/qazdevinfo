@@ -1,11 +1,12 @@
 package org.qazdevelop.qazdevinfo.restcontroller;
 
 import org.qazdevelop.qazdevinfo.entity.Organization;
-import org.qazdevelop.qazdevinfo.entity.Project;
 import org.qazdevelop.qazdevinfo.service.OrganizationService;
-import org.qazdevelop.qazdevinfo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 //TODO Разделить это контроллер на 2
 @RestController
 @RequestMapping("/api/organizations")
@@ -24,7 +25,7 @@ public class OrganizationRestController {
     }
 
     @GetMapping("/showAllOrganizations")
-    public Iterable<Organization> showAllOrganizations(){
+    public List<Organization> showAllOrganizations(){
         return organizationService.findAllOrganizations();
     }
 }

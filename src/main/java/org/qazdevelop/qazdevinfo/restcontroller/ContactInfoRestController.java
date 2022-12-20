@@ -19,7 +19,7 @@ public class ContactInfoRestController {
     }
 
     @GetMapping("/showAllContactInfos")
-    public List<ContactInfo> showAllContactInformations(){
+    public List<ContactInfo> showAllContactInformation(){
         return service.findAllContactInfo();
     }
 

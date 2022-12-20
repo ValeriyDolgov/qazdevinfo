@@ -2,7 +2,6 @@ package org.qazdevelop.qazdevinfo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.qazdevelop.qazdevinfo.enumerations.Rank;
 
 @Entity
 @Data
@@ -20,7 +19,9 @@ public class Position {
     @Column(name = "level")
     private String level;
 
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "rank")
+//    private Rank rank;
     @Column(name = "rank")
-    private Rank rank;
+    private int rank;
 }

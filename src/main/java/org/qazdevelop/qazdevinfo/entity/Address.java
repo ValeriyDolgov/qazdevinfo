@@ -1,9 +1,7 @@
 package org.qazdevelop.qazdevinfo.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
-
 
 @Entity
 @Data
@@ -35,5 +33,4 @@ public class Address {
 
     @Column(name = "is_registered")
     private boolean isRegistered;
-
 }

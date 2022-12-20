@@ -1,7 +1,5 @@
 package org.qazdevelop.qazdevinfo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,10 +8,8 @@ import java.util.Set;
 
 @Entity
 @Data
-//@Embeddable
 @Table(name = "employee")
 public class Employee {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,19 +43,12 @@ public class Employee {
     @Column(name = "timezone")
     private String timezone;
 
-    @OneToOne
-    @JsonManagedReference
-    @JoinColumn(name = "id")
-    private ContactInfo info;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "employee_relative",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "relative_id")
     )
-//    @JsonManagedReference
-//    @JsonIgnore
     Set<Relative> relativeSet;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -77,9 +66,12 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(name = "position_id")
     )
     Set<Position> positionSet;
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "employee_skill",
-//            joinColumns = @JoinColumn(name = "employee_id")
-//    )
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "employee_address",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id")
+    )
+    Set<Address> addressSet;
 }

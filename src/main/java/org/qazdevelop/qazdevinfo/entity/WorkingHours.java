@@ -1,6 +1,5 @@
 package org.qazdevelop.qazdevinfo.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,8 +16,8 @@ public class WorkingHours {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
-    @JsonBackReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
     @Column(name = "working_date")

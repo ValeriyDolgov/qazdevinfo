@@ -3,9 +3,7 @@ package org.qazdevelop.qazdevinfo.restcontroller;
 import org.qazdevelop.qazdevinfo.entity.WorkingHours;
 import org.qazdevelop.qazdevinfo.service.WorkingHoursService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,10 @@ public class WorkingHoursRestController {
     @GetMapping("/showAllWorkingHours")
     public List<WorkingHours> showAllWorkingHours(){
         return this.service.findAllWorkingHours();
+    }
+
+    @PostMapping("/saveNewWorkingHours")
+    public void saveNewWorkingHours(@RequestBody WorkingHours workingHours){
+        service.saveWorkingHours(workingHours);
     }
 }

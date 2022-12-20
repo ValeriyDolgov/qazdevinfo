@@ -15,14 +15,6 @@ public class Vacation {
     @Column(name = "id")
     private Long id;
 
-    //Foreign key
-    @Column(name = "employee_id")
-    private Long employeeId;
-
-    //Foreign key
-    @Column(name = "replacement_user_id")
-    private Long replacementUserId;
-
     @Column(name = "start_date")
     private Date startDate;
 
@@ -31,4 +23,12 @@ public class Vacation {
 
     @Column(name = "update_date")
     private Date updateDate;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee employee;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "replacement_user_id", referencedColumnName = "id")
+    private User user;
 }

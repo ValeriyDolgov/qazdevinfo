@@ -1,6 +1,5 @@
 package org.qazdevelop.qazdevinfo.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,10 +12,8 @@ public class ContactInfo {
     @Column(name = "employee_id", insertable = false, updatable = false)
     private Long employee_id;
 
-
-    @OneToOne
-    @JsonBackReference
-    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;
 
     @Column(name = "office_number")

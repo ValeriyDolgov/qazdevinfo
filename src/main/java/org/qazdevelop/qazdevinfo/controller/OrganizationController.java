@@ -1,7 +1,6 @@
 package org.qazdevelop.qazdevinfo.controller;
 
 import org.qazdevelop.qazdevinfo.service.OrganizationService;
-import org.qazdevelop.qazdevinfo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,5 @@
 package org.qazdevelop.qazdevinfo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,10 +15,4 @@ public class Organization {
 
     @Column(name = "name")
     private String name;
-
-//    @JsonIgnore
-    @OneToOne(mappedBy = "organization",
-            cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private Project project;
 }
